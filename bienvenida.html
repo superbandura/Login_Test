@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bienvenida</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+</head>
+<body>
+  <h1 id="saludo">Cargando...</h1>
+
+  <script>
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        db.collection("usuarios").doc(user.uid).get().then(doc => {
+          const nombre = doc.data().nombre;
+          document.getElementById("saludo").innerText = `¡Bienvenido, ${nombre}!`;
+        });
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+  </script>
+</body>
+</html>
